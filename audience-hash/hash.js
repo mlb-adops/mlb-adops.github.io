@@ -32,12 +32,10 @@ function processFile(){
         let value = cols[j];
         value = value.trim();
 
-        console.log(value);
         if (i !==0 && j === 0){
           value = await digestMessage(value);
         }
         hashedArray[i][j] = value;
-        console.log(value);
       }
     }
     download("hashed.csv", hashedArray);
@@ -69,8 +67,19 @@ function download(filename, data) {
 }
 
 async function digestMessage(message) {
+
+  // Set Algorithm to Hash
+  let algorithmInput = document.getElementsByName('algorithm');
+  let algorithmValue;
+            
+  for (let i=0; i<algorithmInput.length; i++) {
+    if (algorithmInput[i].checked) {
+      algorithmValue = algorithmInput[i].value;
+    }
+  }
+
   const msgUint8 = new TextEncoder().encode(message);                           // encode as (utf-8) Uint8Array
-  const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);           // hash the message
+  const hashBuffer = await crypto.subtle.digest(algorithmValue, msgUint8);           // hash the message
   const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
   const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
   return hashHex;
