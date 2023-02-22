@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Hash CSV File</title>
+  <meta name="robots" content="noindex">
   <script src="./hash.js"></script>
   <link href='../style.css' rel="stylesheet">
   <link href='./style-hash.css' rel="stylesheet">
@@ -17,8 +18,12 @@
       </section>
     </section>
     <section>
-      <h3>Input</h3>
+      <h2>Input</h2>
       <div class="divider"></div>
+
+      <!--  -->
+      <!-- ALGORITHM CONTROL SECTION -->
+      <!--  -->
       <section>
         <!-- form radio control -->
         <h5>Algorithm</h5>
@@ -38,6 +43,10 @@
         </div>
       </section>
       <div class="divider"></div>
+
+      <!--  -->
+      <!-- COLUMN TO HASH SECTION -->
+      <!--  -->
       <section>
         <h5>Column to Hash</h5>
         <div class="form-group">
@@ -50,9 +59,33 @@
         </div>
       </section>
       <div class="divider"></div>
+
+      <!--  -->
+      <!-- GOOGLE IDENTIFIER SECTION -->
+      <!--  -->
+      <section>
+        <h5>Identifier</h5>
+        <div class="form-group">
+          <label class="form-radio form-inline">
+            <input type="radio" name="identifier" value="null" checked=""><i class="form-icon"></i> None
+          </label>
+          <label class="form-radio form-inline">
+            <input type="radio" name="identifier" value="ppid" checked=""><i class="form-icon"></i> PPID
+          </label>
+          <label class="form-radio form-inline">
+            <input type="radio" name="identifier"  value="cookie_rida"><i class="form-icon"></i> RDID: RIDA
+          </label>
+          <label class="form-radio form-inline">
+            <input type="radio" name="identifier" value="cookie_idfa"><i class="form-icon" ></i> RDID: IDFA
+          </label>
+          <label class="form-radio form-inline">
+            <input type="radio" name="identifier" value="cookie_gaid"><i class="form-icon"></i> RDID: GAID
+          </label>
+        </div>
+      </section>
     </section>
     <section>
-      <h3>Output</h3>
+      <h2>Output</h2>
       <div class="divider"></div>
     </section>
   </main>
