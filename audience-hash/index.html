@@ -1,10 +1,50 @@
 <!doctype HTML>
 <html>
 <head>
+  <title>Hash CSV File</title>
   <script src="./hash.js"></script>
+  <link href='../style.css' rel="stylesheet">
+  <link href='./style-hash.css' rel="stylesheet">
 </head>
 <body>
-  <input type="file" id="myFile">
-  <button onclick='processFile()'>Process</button>
+  <main>
+    <h1>Hash CSV File</h1>
+    <section>
+      <p>Upload and hash a CSV file.</p>
+      <input type="file" id="myFile">
+      <button class='btn' onclick='processFile()'>Process</button>
+    </section>
+    <div class="divider"></div>
+    <section>
+      <!-- form radio control -->
+      <h5>Algorithm</h5>
+      <div class="form-group">
+        <label class="form-radio form-inline">
+          <input type="radio" name="algorithm" value="SHA-1"><i class="form-icon"></i> SHA-1
+        </label>
+        <label class="form-radio form-inline">
+          <input type="radio" name="algorithm" value="SHA-224"><i class="form-icon" ></i> SHA-224
+        </label>
+        <label class="form-radio form-inline">
+          <input type="radio" name="algorithm" checked="" value="SHA-256"><i class="form-icon"></i> SHA-256
+        </label>
+        <label class="form-radio form-inline">
+          <input type="radio" name="algorithm" value="SHA-512"><i class="form-icon"></i> SHA-512
+        </label>
+      </div>
+    </section>
+    <div class="divider"></div>
+    <section>
+      <h5>Column to Hash</h5>
+      <div class="form-group">
+        <label class="form-checkbox form-inline">
+          <input type="checkbox" name="column" checked="true" value="0"><i class="form-icon"></i> Column 1
+        </label>
+        <label class="form-checkbox form-inline">
+          <input type="checkbox" name="column" value="1"><i class="form-icon"></i> Column 2
+        </label>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
