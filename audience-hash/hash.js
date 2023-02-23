@@ -42,6 +42,50 @@ function processFile(){
   }
 }
 
+function hashFile() {
+
+  const file = document.querySelector('#myFile').files[0];
+  const reader = new FileReader();
+  let hashedArray = [];
+
+  reader.readAsText(file);
+
+  return new Promise((resolve, reject) => {
+    // When the file finish load
+    reader.onload = async function(event) {
+
+      let csv = event.target.result;
+      let rows = csv.split('\n');
+
+      // Go line by line through the CSV
+      for (let i=0; i<rows.length; i++) {
+        //split by separator (,) and get the columns
+        cols = rows[i].split(',');
+        hashedArray[i] = new Array();
+
+        // Go column by column through the CSV
+        for (let j=0; j<cols.length; j++) {
+          /*the value of the current column.
+          Do whatever you want with the value*/
+          let value = cols[j];
+          value = value.trim();
+
+          if (i !==0 && j === 0){
+            value = await digestMessage(value);
+          }
+          hashedArray[i][j] = value;
+        }
+      }
+
+      resolve(hashedArray);
+    }
+
+    reader.onerror = () => {
+      reject(reader.error);
+    }
+  });
+}
+
 function download(filename, data) {
 
   let lineArray = [];
