@@ -14,7 +14,8 @@
       <section>
         <p>Upload and hash a CSV file.</p>
         <input type="file" id="myFile">
-        <button class='btn' onclick='processFile()'>Process</button>
+        <!-- <button class='btn' onclick='processFile()'>Process</button> -->
+        <button class='btn' onclick='hashFile()'>Process</button>
       </section>
     </section>
     <section>
@@ -27,6 +28,7 @@
       <section>
         <!-- form radio control -->
         <h5>Algorithm</h5>
+        <p>Hashing algorithm to use. Defaults to the SHA-256 algorithm.</p>
         <div class="form-group">
           <label class="form-radio form-inline">
             <input type="radio" name="algorithm" value="SHA-1"><i class="form-icon"></i> SHA-1
@@ -49,6 +51,7 @@
       <!--  -->
       <section>
         <h5>Column to Hash</h5>
+        <p>Select which column to hash values. Defaults to column 1 only.</p>
         <div class="form-group">
           <label class="form-checkbox form-inline">
             <input type="checkbox" name="column" checked="true" value="0"><i class="form-icon"></i> Column 1
@@ -65,6 +68,7 @@
       <!--  -->
       <section>
         <h5>Identifier</h5>
+        <p>Select which type of Id to send to Google. Adds a row at the top including this information. Defaults to PPID.</p>
         <div class="form-group">
           <label class="form-radio form-inline">
             <input type="radio" name="identifier" value="null" checked=""><i class="form-icon"></i> None

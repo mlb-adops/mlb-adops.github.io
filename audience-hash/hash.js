@@ -76,8 +76,7 @@ function hashFile() {
           hashedArray[i][j] = value;
         }
       }
-
-      resolve(hashedArray);
+      resolve();
     }
 
     reader.onerror = () => {
