@@ -1,0 +1,24 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  margin: 48px auto;
+  max-width: 1280px;
+}
+
+#primary {
+  display: grid;
+  grid-template-columns: 2fr auto 2fr auto 3fr;
+  grid-gap: 16px;
+}
+
+#input {
+  width: 100%;
+  min-height: 256px;
+}
+#output {
+  width: 100%;
+  min-height: 256px;
+}
