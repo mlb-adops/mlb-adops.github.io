@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <head>
   <title>PartyTown</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>
     partytown = {
-      debug: true,
       forward: ['googletag', 'googletag.cmd', 'googletag.cmd.push', 'googletag.display', 'googletag.defineSlot', 'googletag.addService', 'googletag.enableServices', 'googletag.pubads'],
     };
   </script>
   <!-- <script type="text/partytown" async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script> -->
   <!-- <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script> -->
   <!-- <script type="text/partytown" async src="./gpt.js"></script> -->
+  
   <script type="text/partytown" async src="./pubads_impl_2023032201.js"></script>
+  <!-- <script async src="./pubads_impl_2023032201.js"></script> -->
 
   <script type="text/partytown">
     console.log('PartyTown Head Script');
@@ -19,12 +21,12 @@
       console.log('CMD Push');
       googletag
           .defineSlot(
-              '/2605/mlb.mlb', [300, 250], 'banner-ad')
+              '/22751670966/mlb.mlb', [300, 250], 'banner-ad')
           .addService(googletag.pubads());
       googletag.enableServices();
     });
   </script>
-  <script type="text/javascript" src="../~partytown/partytown.js"></script>
+  <script type="text/javascript" async src="../~partytown/partytown.js"></script>
 </head>
 <body>
   <header>
