@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+  <title>PartyTown</title>
+  <script>
+    partytown = {
+      debug: true,
+      forward: ['googletag', 'googletag.cmd', 'googletag.cmd.push', 'googletag.display', 'googletag.defineSlot', 'googletag.addService', 'googletag.enableServices', 'googletag.pubads'],
+    };
+  </script>
+  <!-- <script type="text/partytown" async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script> -->
+  <!-- <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script> -->
+  <!-- <script type="text/partytown" async src="./gpt.js"></script> -->
+  <script type="text/partytown" async src="./pubads_impl_2023032201.js"></script>
+
+  <script type="text/partytown">
+    console.log('PartyTown Head Script');
+    window.googletag = window.googletag || {cmd: []};
+    googletag.cmd.push(function() {
+      console.log('CMD Push');
+      googletag
+          .defineSlot(
+              '/2605/mlb.mlb', [300, 250], 'banner-ad')
+          .addService(googletag.pubads());
+      googletag.enableServices();
+    });
+  </script>
+  <script type="text/javascript" src="../~partytown/partytown.js"></script>
+</head>
+<body>
+  <header>
+
+  </header>
+  <main>
+    <h1>PartyTown</h1>
+    <p>PartyTown Testing Environment</p>
+    <div id="banner-ad" style="width: 300px; height: 250px;">
+      <script type="text/partytown">
+        console.log('PartyTown Body Script')
+        googletag.cmd.push(function() {
+          googletag.display('banner-ad');
+        });
+      </script>
+    </div>
+  </main>
+  <footer>
+
+  </footer>
+</body>

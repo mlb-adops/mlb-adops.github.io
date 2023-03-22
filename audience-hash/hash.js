@@ -1,7 +1,5 @@
 //Hash String to SHA 256
 
-
-
 function processFile(){
 
   const progressLabel = document.getElementById("progress-label");
