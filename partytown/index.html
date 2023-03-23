@@ -3,25 +3,36 @@
   <title>PartyTown</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>
-    partytown = {
-      forward: ['googletag', 'googletag.cmd', 'googletag.cmd.push', 'googletag.display', 'googletag.defineSlot', 'googletag.addService', 'googletag.enableServices', 'googletag.pubads'],
-    };
+    // partytown = {
+    //   forward: ['googletag', 'googletag.cmd', 'googletag.cmd.push', 'googletag.display', 'googletag.defineSlot', 'googletag.addService', 'googletag.enableServices', 'googletag.pubads'],
+    // };
   </script>
   <!-- <script type="text/partytown" async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script> -->
   <!-- <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script> -->
   <!-- <script type="text/partytown" async src="./gpt.js"></script> -->
   
-  <script type="text/partytown" async src="./pubads_impl_2023032201.js"></script>
-  <!-- <script async src="./pubads_impl_2023032201.js"></script> -->
+  <!-- <script type="text/partytown" async src="./pubads_impl_2023032201.js"></script> -->
+  <script async src="./pubads_impl_2023032201.js"></script>
 
-  <script type="text/partytown">
+  <script>
     console.log('PartyTown Head Script');
     window.googletag = window.googletag || {cmd: []};
     googletag.cmd.push(function() {
+
+      googletag.pubads().setForceSafeFrame(true);
+
+      let pageConfig = {
+        allowOverlayExpansion: true,
+        allowPushExpansion: true,
+        sandbox: true
+      };
+
+      googletag.pubads().setSafeFrameConfig(pageConfig);
+
       console.log('CMD Push');
       googletag
           .defineSlot(
-              '/22751670966/mlb.mlb', [300, 250], 'banner-ad')
+              '/22751670966/mlb.mlb', [[300, 250]], 'banner-ad')
           .addService(googletag.pubads());
       googletag.enableServices();
     });
@@ -36,7 +47,7 @@
     <h1>PartyTown</h1>
     <p>PartyTown Testing Environment</p>
     <div id="banner-ad" style="width: 300px; height: 250px;">
-      <script type="text/partytown">
+      <script>
         console.log('PartyTown Body Script')
         googletag.cmd.push(function() {
           googletag.display('banner-ad');
