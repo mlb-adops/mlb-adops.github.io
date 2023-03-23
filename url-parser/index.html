@@ -5,6 +5,13 @@
     <meta name="robots" content="noindex">
     <link href='./style-parser.css' rel="stylesheet">
     <link href='../style.css' rel="stylesheet">
+
+    <!-- Highlight JS CSS Highlighter -->
+    <!-- Include the Highlight.js library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css" integrity="sha512-GjK6lq3OUspkU8OJjI17fUdQllJpdRryrm8K4W4nf0I5jyV5R+X5h5rsgm5oOhlxj3z+Zp/YJh+wIJ+EJe33+g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js" integrity="sha512-ZGpHeMSzAYKjD0L0kj7gsLy+y41QccV7R5X9r5O7iD96beheZ3qFbSczELlYpqK96Layx6SOqXG9pI+nWSSSgw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/languages/json.min.js" integrity="sha512-iGzKp8ty1g+Dk0yHxjyC9X8GpY6rsz+TghT0T+TfL8+U6SLLl6xjF3BJ9/t8+Yb4evv08EwRz6JjKrb+t7VJFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
   </head>
   <body>
     <main>
@@ -15,11 +22,12 @@
       <section id="primary">
         <section id="parser-input">
           <h4>Input</h4>
-          <textarea id="input"></textarea>
+          <textarea id="input">https://www.google.com/</textarea>
         </section>
         <div class="divider-vert"></div>
         <section id="options">
           <h4>Controls</h4>
+          <button class="btn" onclick="updateOutputField()">Parse URL</button>
           <div class="form-group">
             <label class="form-switch">
               <input type="checkbox" name="json" checked="true">
@@ -30,11 +38,13 @@
         <div class="divider-vert"></div>
         <section id="parser-output">
           <h4>Output</h4>
-          <textarea id="output"></textarea>
+          <pre id="output">
+            
+          </pre>
         </section>
       </section>
       <footer>
-
+        <script src="parser.js"></script>
       </footer>
     </main>
   </body>

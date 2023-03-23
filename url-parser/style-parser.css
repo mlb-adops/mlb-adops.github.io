@@ -22,3 +22,12 @@ main {
   width: 100%;
   min-height: 256px;
 }
+
+.hljs-attr:after {
+  content: ':';
+}
+
+.hljs-attr:empty:after {
+  content: ':';
+  color: #ff8383;
+}
