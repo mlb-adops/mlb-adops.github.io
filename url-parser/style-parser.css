@@ -10,7 +10,7 @@ main {
 
 #primary {
   display: grid;
-  grid-template-columns: 2fr auto 2fr auto 3fr;
+  grid-template-columns: 2fr auto 3fr;
   grid-gap: 16px;
 }
 
@@ -20,9 +20,14 @@ main {
 }
 #output {
   width: 100%;
+  max-width: 100%;
+  min-height: 256px;
+  overflow-x: scroll;
+}
+#options {
+  width: 100%;
   min-height: 256px;
 }
-
 .hljs-attr:after {
   content: ':';
 }
