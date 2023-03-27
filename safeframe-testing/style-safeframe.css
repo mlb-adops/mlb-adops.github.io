@@ -1,0 +1,13 @@
+@media screen and (min-width: 0) {
+  main {
+    margin: 48px 16px;
+    max-width: 100%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  article {
+    margin: 16px auto;
+    max-width: 800px;
+  }
+}

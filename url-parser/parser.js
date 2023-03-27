@@ -51,7 +51,7 @@ function updateOutputField() {
   // outputField.innerText = JSON.stringify(outputFieldValue, null, 2);
   outputField.innerHTML = JSON.stringify(outputFieldValue, null, 2).replace(emptyKeyValue, replacementKeyValue);
 
-  outputField.innerHTML = JSON.stringify(highlightedObj, null, 2);
+  // outputField.innerHTML = JSON.stringify(highlightedObj, null, 2);
 
   // console.log(`protocol: ${parsedUrl.protocol}`); // "https:"
   // console.log(`hostname: ${parsedUrl.hostname}`); // "www.example.com"

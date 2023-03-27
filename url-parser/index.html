@@ -16,6 +16,15 @@
         <section id="parser-input">
           <h4>Input</h4>
           <textarea id="input">https://www.google.com/</textarea>
+          <div class="divider" style="grid-row:span 2"></div>
+          <h4>Controls</h4>
+          <button class="btn" onclick="updateOutputField()">Parse URL</button>
+          <div class="form-group">
+            <label class="form-switch">
+              <input type="checkbox" name="json" checked="true">
+              <i class="form-icon"></i> Convert to JSON
+            </label>
+          </div>
         </section>
         
         <div class="divider-vert" style="grid-row:span 2"></div>
@@ -27,22 +36,16 @@
         </section>
 
         <section id="options">
-          <h4>Controls</h4>
-          <button class="btn" onclick="updateOutputField()">Parse URL</button>
-          <div class="form-group">
-            <label class="form-switch">
-              <input type="checkbox" name="json" checked="true">
-              <i class="form-icon"></i> Convert to JSON
-            </label>
-          </div>
+          
         </section>
       </section>
-      <footer>
-        <div class="divider"></div>
-        <p>Updated 2023.03.25<br>
-        Created by A. Dean Kelly</p>
-        <script src="parser.js"></script>
-      </footer>
+      
     </main>
+    <footer>
+      <div class="divider"></div>
+      <p>Updated 2023.03.27<br>
+      Created with ❤️ by A. Dean Kelly</p>
+      <script src="parser.js"></script>
+    </footer>
   </body>
 </html>
