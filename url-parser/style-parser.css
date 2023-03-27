@@ -18,9 +18,12 @@ main {
   width: 100%;
   min-height: 256px;
 }
+#parser-output {
+  grid-row: span 2;
+}
 #output {
   width: 100%;
-  max-width: 100%;
+  max-width: 728px;
   min-height: 256px;
   overflow-x: scroll;
 }
@@ -35,4 +38,11 @@ main {
 .hljs-attr:empty:after {
   content: ':';
   color: #ff8383;
+}
+
+.highlighted {
+  padding: 4px;
+  color: white;
+  background-color: red;
+  border-radius: 4px;
 }
