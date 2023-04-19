@@ -1,0 +1,61 @@
+<!doctype HTML>
+<html>
+<head>
+  <title>Hash MLB Audience CSV File</title>
+  <meta name="robots" content="noindex">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link href='../style.css' rel="stylesheet">
+  <link href='./style-hash.css' rel="stylesheet">
+</head>
+<body>
+  <main>
+    <section>
+      <h1>Hash CSV File</h1>
+      <section>
+        <p>Upload and hash a CSV file.</p>
+        <div class="form-group"><input class='form-file' type="file" id="myFile"></div>
+        <!-- <button class='btn' onclick='processFile()'>Process</button> -->
+      </section>
+    </section>
+
+    <!-- INPUT SECTION -->
+    <section>
+      <h2>Input</h2>
+      <div class="divider"></div>
+      <span class="label form-group" id="progress-label-input">Not Started</span>
+      <div class="bar bar">
+        <div class="bar-item" role="progressbar" id="progress-bar-input" style="width:0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <div class="divider"></div>
+
+      <button class='btn btn-block' onclick='processFile()'>Process File</button>
+
+      <div class="divider"></div>
+      <section id="adobe-identifiers">
+      </section>
+    </section>
+
+    <!-- OUTPUT SECTION -->
+    <section>
+      <h2>Output</h2>
+      <div class="divider"></div>
+      <span class="label form-group" id="progress-label-output">Not Started</span>
+      <div class="bar bar">
+        <div class="bar-item" role="progressbar" id="progress-bar-output" style="width:0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+      <div class="divider"></div>
+
+      <button class='btn btn-block' onclick='hashArray()'>Hash Audience</button>
+
+    </section>
+  </main>
+  <footer>
+    <div class="divider"></div>
+    <p>Updated 2023.04.19<br>
+    Created with ❤️ by A. Dean Kelly</p>
+    <!-- <script src="parser.js"></script> -->
+    <script src="./hash.v2.js"></script>
+  </footer>
+</body>
+</html>
