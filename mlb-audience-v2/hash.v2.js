@@ -70,6 +70,8 @@ async function processFile() {
 
         progressBarInput.style.width = ((i/rows.length) * 100) + '%';
 
+        // await sleep(i, rows);
+
         // Check the Adobe Id Array for a unique value
         // Add the value to the array if unique
         if (j === 3 && adobeIdCheckArray.indexOf(value) == -1){
@@ -272,6 +274,22 @@ async function digestMessage(message, algorithmValue) {
   return hashHex;
 }
 
-function sleep() {
-  return new Promise(resolve => setTimeout(resolve, 1));
-}
+// function sleep() {
+//   // console.log('sleep');
+//   return new Promise(resolve => setTimeout(resolve, 100));
+// }
+
+// function sleep(i, rows) {
+//   console.log('sleep');
+//   return new Promise(resolve => {
+//     setTimeout(resolve, 0);
+//   });
+// }
+
+// function sleep(i, rows) {
+//   // console.log('sleep');
+//   return new Promise(resolve => {
+//     progressBarInput.style.width = ((i/rows.length) * 100) + '%';
+//     resolve(progressBarInput.style.width);
+//   });
+// }
