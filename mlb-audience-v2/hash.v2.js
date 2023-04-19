@@ -47,8 +47,8 @@ async function processFile() {
     let rows = csv.split('\n');
 
     // Move through the rows line by line
-    // for (let i=0; i<rows.length; i++) {
-      console.log(rows.length);
+    // for (let i=0; i<10000; i++) {
+    // console.log(rows.length);
     for (let i=1; i<rows.length; i++) {
 
       // console.log(i);
@@ -147,6 +147,12 @@ function createAdobeFields() {
 }
 
 async function hashArray() {
+
+  // Reset All Arrays
+  googleIdArray = [];
+  PenultimateArray = [];
+  FinalArray = [];
+
   progressLabelOutput.classList.add('label-warning');
   progressLabelOutput.innerText = 'In Progress';
   
