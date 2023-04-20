@@ -51,8 +51,6 @@ async function processFile() {
     // console.log(rows.length);
     for (let i=1; i<rows.length; i++) {
 
-      // console.log(i);
-
       // Split by separator (,) and get the columns
       let commaRegex = /,(?=(?:[^"]*"[^"]*")*[^"]*$)/;
       cols = rows[i].split(commaRegex);
@@ -61,32 +59,37 @@ async function processFile() {
       // progressBar.style.width = ((i/rows.length) * 100) + '%';
       // console.log(i/rows.length);
 
-      //move column by column
-      for (let j=0; j<cols.length; j++) {
-        /*the value of the current column.
-        Do whatever you want with the value*/
-        let value = cols[j];
-        value = value.trim();
-
-        progressBarInput.style.width = ((i/rows.length) * 100) + '%';
-
-        // await sleep(i, rows);
-
-        // Check the Adobe Id Array for a unique value
-        // Add the value to the array if unique
-        if (j === 3 && adobeIdCheckArray.indexOf(value) == -1){
-          // console.group(`Row:Column - ${i}:${j+1}`);
-          // console.log(`Unique Value - ${cols[j+1]}`);
-          // console.groupEnd();
-
-          adobeIdCheckArray.push(value);
-          adobeIdArray.push(`(${value}) - ${cols[j+1]}`);
-        }
-
-        if (i !==0 && (j === 0 || j=== 3)){
-          processedArray[i].push(value);
-        }
+      /*the value of the current column.
+      Do whatever you want with the value*/
+      let value = null;
+      let valueId = null;
+      if (cols[0]) {
+        value = cols[0].trim();
       }
+      if (cols[3]) {
+        valueId = cols[3].trim();
+      }
+
+      // console.log(value);
+      // console.log(valueId);
+
+      // progressBarInput.style.width = ((i/rows.length) * 100) + '%';
+
+
+      // Check the Adobe Id Array for a unique value
+      // Add the value to the array if unique
+      if (adobeIdCheckArray.indexOf(valueId) == -1){
+        // console.group(`Row:Column - ${i}:${j+1}`);
+        // console.log(`Unique Value - ${cols[j+1]}`);
+        // console.groupEnd();
+
+        adobeIdCheckArray.push(valueId);
+        adobeIdArray.push(`(${valueId}) - ${cols[4]}`);
+        await sleep(i, rows);
+      }
+
+      processedArray[i].push(value);
+      processedArray[i].push(valueId);
     }
 
     createAdobeFields();
@@ -279,12 +282,13 @@ async function digestMessage(message, algorithmValue) {
 //   return new Promise(resolve => setTimeout(resolve, 100));
 // }
 
-// function sleep(i, rows) {
-//   console.log('sleep');
-//   return new Promise(resolve => {
-//     setTimeout(resolve, 0);
-//   });
-// }
+function sleep(i, rows) {
+  console.log('sleep');
+  return new Promise(resolve => {
+    progressBarInput.style.width = ((i/rows.length) * 100) + '%';
+    setTimeout(resolve, 0);
+  });
+}
 
 // function sleep(i, rows) {
 //   // console.log('sleep');
