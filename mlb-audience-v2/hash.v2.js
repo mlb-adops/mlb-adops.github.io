@@ -67,7 +67,7 @@ async function processFile() {
         value = cols[0].trim();
       }
       if (cols[3]) {
-        valueId = cols[3].trim();
+        valueId = cols[4].trim();
       }
 
       // console.log(value);
@@ -84,7 +84,7 @@ async function processFile() {
         // console.groupEnd();
 
         adobeIdCheckArray.push(valueId);
-        adobeIdArray.push(`(${valueId}) - ${cols[4]}`);
+        adobeIdArray.push(`(${valueId}) - ${cols[5]}`);
         await sleep(i, rows);
       }
 
