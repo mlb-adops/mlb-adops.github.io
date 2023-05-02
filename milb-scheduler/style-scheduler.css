@@ -1,0 +1,14 @@
+header {
+  max-width: 1280px;
+  margin: 16px auto;
+}
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 32px;
+}
+#details {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 420px;
+}
