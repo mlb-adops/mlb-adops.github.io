@@ -45,7 +45,8 @@ async function generateSchedule() {
       const gameDetails = gamesDate.games[j];
       const gameDate = convertDate(gameDetails.gameDate);
       const startTime = getStartTime(gameDetails.gameDate);
-      const gameInfo = [gameDetails.gamePk, gameDate, gameDetails.teams.away.team.name, gameDetails.teams.home.team.name, startTime]
+      const weekDay = getWeekday(gameDetails.gameDate)
+      const gameInfo = [gameDetails.gamePk, `${gameDetails.teams.away.team.name} @ ${gameDetails.teams.home.team.name}`, weekDay, gameDate, startTime];
       schedule.push(gameInfo);
     }
   }
@@ -83,11 +84,26 @@ function getStartTime(isoDate) {
   return formattedTime;
 }
 
+function getWeekday(isoDate) {
+  const dateTime = new Date(isoDate);
+
+  const locale = "en-US";
+  const options = {
+    weekday: "long",
+    timeZone: "America/New_York"
+  };
+  
+  const formatter = new Intl.DateTimeFormat(locale, options);
+  const formattedTime = formatter.format(dateTime);
+
+  return formattedTime;
+}
+
 // Download a CSV file of the Schedule
 function download(data) {
 
   let lineArray = [];
-  let OrganizedArray = ['Game PK', 'Date', 'Away Team', 'Home Team', 'Start Time'];
+  let OrganizedArray = ['Game PK', 'Game', 'Day', 'Date', 'Time (ET)'];
 
   data.unshift(OrganizedArray);
   
