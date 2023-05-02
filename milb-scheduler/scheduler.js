@@ -2,7 +2,7 @@
 
 // Access Stats API and Generate a CSV File of the MiLB Schedule
 async function generateSchedule() {
-  const statsAPI = 'https://statsapi.mlb.com/api/v1/schedule/';
+  const statsAPI = 'https://statsapi.mlb.com/api/v1';
   const startDateElement = document.getElementById('startdate');
   const endDateElement = document.getElementById('enddate');
 
@@ -17,36 +17,68 @@ async function generateSchedule() {
   } 
   const startDateValue = convertDate(startDateElement.value);
   const endDateValue = convertDate(endDateElement.value);
+  const seasonYear = getYear(startDateElement.value);
 
-  const params = {
-    fields: ['dates','date','games','gamePk','gameDate','teams','away','team','name','home','team','name'],
+  const scheduleParams = {
+    fields: ['dates','date','games','gamePk','gameDate','teams','away','team','id','home','team','id'],
     scheduleTypes: 'games',
     startDate: startDateValue,
     endDate: endDateValue,
     sportId: classValue
   };
 
-  const searchParams = new URLSearchParams(params);
-  const searchParamsString = searchParams.toString();
+  const teamParams = {
+    fields: ['teams','id','shortName'],
+    activeStatus: 'Y',
+    season: seasonYear,
+    sportId: classValue
+  }
+
+  const scheduleParamsString = new URLSearchParams(scheduleParams).toString();
+  const teamParamsString = new URLSearchParams(teamParams).toString();
 
   // console.log(searchParams.toString());
 
-  const statsResponse = await fetch(`${statsAPI}?${searchParamsString}`);
-  const statsObject = await statsResponse.json();
+  const scheduleResponse = await fetch(`${statsAPI}/schedule/?${scheduleParamsString}`);
+  const scheduleObject = await scheduleResponse.json();
 
-  // console.log(statsObject);
+  const teamResponse = await fetch(`${statsAPI}/teams/?${teamParamsString}`);
+  const teamObject = await teamResponse.json();
 
   let schedule = [];
 
   // Loop through the StatsAPI response and organize the date in a matrix
-  for (i=0; i<statsObject.dates.length; i++) {
-    let gamesDate = statsObject.dates[i];
+  for (i=0; i<scheduleObject.dates.length; i++) {
+    let gamesDate = scheduleObject.dates[i];
     for (j=0; j<gamesDate.games.length; j++){
       const gameDetails = gamesDate.games[j];
       const gameDate = convertDate(gameDetails.gameDate);
       const startTime = getStartTime(gameDetails.gameDate);
-      const weekDay = getWeekday(gameDetails.gameDate)
-      const gameInfo = [gameDetails.gamePk, `${gameDetails.teams.away.team.name} @ ${gameDetails.teams.home.team.name}`, weekDay, gameDate, startTime];
+      const weekDay = getWeekday(gameDetails.gameDate);
+
+      let awayTeamName;
+      let homeTeamName;
+
+      console.log(gameDetails);
+
+      // const away = teamObject.teams.find(obj => gameDetails.teams.away.team.id.test(obj.id));
+
+      // console.log(away);
+
+      for (let k=0; k<teamObject.teams.length; k++) {
+        // Check if the current object has a key that matches the regular expression
+        if (gameDetails.teams.away.team.id === teamObject.teams[k].id) {
+          // If there is a match, replace the matched string with the value of key2 in the current object
+           awayTeamName = teamObject.teams[k].shortName;
+          //  console.log()
+        }
+        if (gameDetails.teams.home.team.id === teamObject.teams[k].id) {
+          // If there is a match, replace the matched string with the value of key2 in the current object
+           homeTeamName = teamObject.teams[k].shortName;
+        }
+      }
+
+      const gameInfo = [gameDetails.gamePk, `${awayTeamName} @ ${homeTeamName}`, weekDay, gameDate, startTime];
       schedule.push(gameInfo);
     }
   }
@@ -82,6 +114,15 @@ function getStartTime(isoDate) {
   const formattedTime = formatter.format(dateTime);
 
   return formattedTime;
+}
+
+function getYear(isoDate) {
+  const date = new Date(isoDate);
+  const year = date.getFullYear();
+
+  console.log(year);
+
+  return year; // output: "1/1/2022"
 }
 
 function getWeekday(isoDate) {
