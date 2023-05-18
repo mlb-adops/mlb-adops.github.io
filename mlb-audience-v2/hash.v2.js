@@ -14,46 +14,23 @@ const progressBarInput = document.getElementById("progress-bar-input");
 const progressLabelOutput = document.getElementById("progress-label-output");
 const progressBarOutput = document.getElementById("progress-bar-output");
 
+let mergedRows = []; // Array to store rows from all files
 
 async function processFile() {
-
-  let file = document.querySelector('#myFile').files[0];
-  let reader = new FileReader();
-
-
-
+  
   progressLabelInput.classList.add('label-warning');
   progressLabelInput.innerText = 'In Progress';
 
-
-  reader.readAsText(file);
-
-  //if you need to read a csv file with a 'ISO-8859-1' encoding
-  /*reader.readAsText(file,'ISO-8859-1');*/
-
-  //When the file finish load
-  reader.onload = async function(event) {
-
-    // Gather the name of the file without the extension
-    const fileNameFull = file.name;
-    fileNameWithoutExtension = fileNameFull.substring(0, fileNameFull.lastIndexOf('.'));
-
-    
-
-    // Get the File Data
-    let csv = event.target.result;
-
-    // Split and get the rows in an array
-    let rows = csv.split('\n');
-
+  loadAndMergeFiles()
+  .then(async () => {
     // Move through the rows line by line
     // for (let i=0; i<10000; i++) {
     // console.log(rows.length);
-    for (let i=1; i<rows.length; i++) {
+    for (let i=0; i<mergedRows.length; i++) {
 
       // Split by separator (,) and get the columns
       let commaRegex = /,(?=(?:[^"]*"[^"]*")*[^"]*$)/;
-      cols = rows[i].split(commaRegex);
+      cols = mergedRows[i].split(commaRegex);
       processedArray[i] = new Array();
 
       // progressBar.style.width = ((i/rows.length) * 100) + '%';
@@ -85,7 +62,7 @@ async function processFile() {
 
         adobeIdCheckArray.push(valueId);
         adobeIdArray.push(`(${valueId}) - ${cols[5]}`);
-        await sleep(i, rows);
+        await sleep(i, mergedRows);
       }
 
       processedArray[i].push(value);
@@ -93,13 +70,17 @@ async function processFile() {
     }
 
     createAdobeFields();
-  }
+  })
+  .catch(error => {
+    console.error('Error loading and merging files:', error);
+  });
 }
 
 function createAdobeFields() {
 
   // Organize the date for further input
   let adobeField = document.querySelector('#adobe-identifiers');
+  adobeField.innerHTML = '';
   for (i=0; i<adobeIdArray.length; i++) {
 
     const AdobeForm = document.createElement('form');
@@ -107,7 +88,7 @@ function createAdobeFields() {
     const BetaAdobeField = document.createElement('label');
     const textAdobeField =document.createElement('p');
     const IncludeField = document.createElement('input');
-    const iAdobeField = document.createElement('i');
+    // const iAdobeField = document.createElement('i');
     const GoogleIdField = document.createElement('input');
     const divider = document.createElement('div');
 
@@ -115,11 +96,12 @@ function createAdobeFields() {
     AdobeForm.setAttribute('name', adobeIdCheckArray[i]);
 
     AlphaAdobeField.setAttribute('id', 'adobe-id');
-    AlphaAdobeField.setAttribute('class', 'form-checkbox');
+    AlphaAdobeField.style = 'margin: 0 0 8px; width: 100%; display: block;'
+    // AlphaAdobeField.setAttribute('class', 'form-checkbox');
     AlphaAdobeField.innerText = adobeIdArray[i];
     // textAdobeField.setAttribute('class', '')
 
-    iAdobeField.setAttribute('class', 'form-icon');
+    // iAdobeField.setAttribute('class', 'form-icon');
 
     GoogleIdField.setAttribute('name', adobeIdCheckArray[i]);
     GoogleIdField.setAttribute('type', 'text');
@@ -136,8 +118,8 @@ function createAdobeFields() {
 
     divider.setAttribute('class', 'divider');
 
-    AlphaAdobeField.appendChild(IncludeField);
-    AlphaAdobeField.appendChild(iAdobeField);
+    // AlphaAdobeField.appendChild(IncludeField);
+    // AlphaAdobeField.appendChild(iAdobeField);
     // AlphaAdobeField.appendChild(textAdobeField);
     BetaAdobeField.appendChild(GoogleIdField);
     AdobeForm.appendChild(AlphaAdobeField);
@@ -146,6 +128,7 @@ function createAdobeFields() {
     adobeField.appendChild(divider);
   }
 
+  progressBarInput.style.width = '100%';
   progressLabelInput.classList.add('label-success');
   progressLabelInput.classList.remove('label-warning');
   progressLabelInput.innerText = 'Complete';
@@ -162,7 +145,7 @@ async function hashArray() {
   progressLabelOutput.innerText = 'In Progress';
   
   let AllFormInputs = document.querySelectorAll('.adobe-id-form');
-  // console.log(AllFormInputs);
+  console.log(AllFormInputs);
 
   for (i = 0; i < AllFormInputs.length; i++) {
     const inputs = AllFormInputs[i].querySelectorAll('input');
@@ -171,10 +154,11 @@ async function hashArray() {
     if (inputs.length > 0) {
       // console.log(inputs[0].value);
       CheckArray.push(inputs[0].value.trim());
-      CheckArray.push(inputs[1].value.trim());
+      // CheckArray.push(inputs[1].value.trim());
     }
     CheckArray.push(AllFormInputs[i].name);
-    if (CheckArray[0] && CheckArray[1]) {
+    // if (CheckArray[0] && CheckArray[1]) {
+    if (CheckArray[0]) {
       googleIdArray.push(CheckArray);
     }
   }
@@ -187,29 +171,15 @@ async function hashArray() {
     for (let j = 0; j < googleIdArray.length; j++) {
       // console.log(processedArray[i][j]);
       // console.log(googleIdArray[j]);
-      if (googleIdArray[j][0] && processedArray[i][1] === googleIdArray[j][2]) {
+      if (googleIdArray[j][0] && processedArray[i][1] === googleIdArray[j][1]) {
         let ImminentArray = new Array;
-        ImminentArray.push(processedArray[i][0],googleIdArray[j][1]);
+        ImminentArray.push(processedArray[i][0],googleIdArray[j][0]);
         // processedArray[i][1] = googleIdArray[j][1];
         PenultimateArray.push(ImminentArray);
         break;
       }
     }
   }
-  // let FinalArray = new Array;
-  // for (let i = 0; i < processedArray.length; i++) {
-  //   let alphaRow = googleIdArray[i];
-  //   FinalArray[i] = new Array;
-  //   // Check if column 2 of the Alpha row is in column 3 of any Beta row where column 1 is true
-  //   const betaRow = processedArray.find(row => row[0] && row[2] === alphaRow[1]);
-  
-  //   // If there is a matching Beta row, replace column 2 of the Alpha row with column 2 of the Beta row
-  //   if (betaRow) {
-  //     alphaRow[1] = betaRow[1];
-  //     FinalArray[i] = alphaRow;
-  //   }
-  // }
-
 
   for (let i=0; i<PenultimateArray.length; i++) {
     //split by separator (,) and get the columns
@@ -233,13 +203,19 @@ async function hashArray() {
     }
   }
 
-  download('Document', FinalArray);
+  download(FinalArray);
 }
 
-function download(filename, data) {
+function download(data) {
 
   let lineArray = [];
   let OrganizedArray = ['ppid', 'list_id'];
+  
+  const fileName = googleIdArray.map((id) => {
+    return id[1];
+  });
+
+  console.log(fileName)
 
   data.unshift(OrganizedArray);
   
@@ -251,14 +227,16 @@ function download(filename, data) {
 
   data = lineArray.join("\n");
 
+  const date = new Date();
+
   const blob = new Blob([data], {type: 'text/csv'});
   if (window.navigator.msSaveOrOpenBlob) {
-      window.navigator.msSaveBlob(blob, fileNameWithoutExtension + '-hashed.csv');
+      window.navigator.msSaveBlob(blob, fileName + '.' + Date.now() + '.hashed.csv');
   }
   else {
       const elem = window.document.createElement('a');
       elem.href = window.URL.createObjectURL(blob);
-      elem.download = fileNameWithoutExtension + '-hashed.csv';        
+      elem.download = fileName + '.' + Date.now() + '.hashed.csv';        
       document.body.appendChild(elem);
       elem.click();        
       document.body.removeChild(elem);
@@ -277,11 +255,6 @@ async function digestMessage(message, algorithmValue) {
   return hashHex;
 }
 
-// function sleep() {
-//   // console.log('sleep');
-//   return new Promise(resolve => setTimeout(resolve, 100));
-// }
-
 function sleep(i, rows) {
   console.log('sleep');
   return new Promise(resolve => {
@@ -290,10 +263,66 @@ function sleep(i, rows) {
   });
 }
 
-// function sleep(i, rows) {
-//   // console.log('sleep');
-//   return new Promise(resolve => {
-//     progressBarInput.style.width = ((i/rows.length) * 100) + '%';
-//     resolve(progressBarInput.style.width);
-//   });
-// }
+
+// Define a function to handle file loading and merging
+function loadAndMergeFile(file) {
+  const reader = new FileReader();
+
+  return new Promise((resolve, reject) => {
+    reader.onload = function(event) {
+      // Gather the name of the file without the extension
+      const fileNameFull = file.name;
+      const fileNameWithoutExtension = fileNameFull.substring(0, fileNameFull.lastIndexOf('.'));
+
+      // Get the file data as an ArrayBuffer
+      const csv = event.target.result;
+
+      // // Create a new Uint8Array from the buffer
+      // const array = new Uint8Array(buffer);
+
+      // // Convert the Uint8Array to a string using a specific encoding (e.g., UTF-8)
+      // const decoder = new TextDecoder('utf-8');
+      // const csv = decoder.decode(array);
+
+      // Split and get the rows in an array
+      let rows = csv.split('\n');
+      rows.shift();
+
+      // Check if the last row is empty
+      if (rows[rows.length - 1].trim() === '') {
+        console.log('truncate');
+        rows.pop(); // Remove the last row
+      }
+
+      // Add the rows from the current file to the mergedRows array
+      mergedRows = mergedRows.concat(rows);
+
+      resolve();
+    };
+
+    reader.onerror = function() {
+      reject(reader.error);
+    };
+
+    reader.readAsText(file);
+  });
+}
+
+// Use async/await to sequentially load and merge files
+async function loadAndMergeFiles() {
+  let files = document.querySelector('#myFile').files; // Get the array of selected files
+  mergedRows = [];
+  
+  for (let i = 0; i < files.length; i++) {
+    let file = files[i];
+
+    try {
+      await loadAndMergeFile(file);
+    } catch (error) {
+      console.error('Error loading file:', error);
+    }
+  }
+
+  // Perform any necessary steps with the mergedRows array
+  // ...
+}
