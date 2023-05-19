@@ -1,0 +1,10 @@
+main {
+  margin: 48px auto;
+  max-width: 1280px;  
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+body {
+  height: 100vh;
+}
