@@ -115,15 +115,21 @@ function createAdobeFields() {
 
   // Organize the date for further input
   let adobeField = document.querySelector('#adobe-identifiers');
+  console.log(adobeField);
   adobeField.innerHTML = '';
+  const siblingElement = document.createElement('div');
+  adobeField.appendChild(siblingElement);
+
   for (i=0; i<adobeIdArray.length; i++) {
 
-    console.log(adobeIdCheckArray[i]);
+    // console.log(adobeIdCheckArray[i]);
     let populateGoogleValue;
+    let GoogleIdAvailable = false;
     const key = adobeIdCheckArray[i];
     if (googleAdobeArray.hasOwnProperty(key)) {
+      GoogleIdAvailable = true;
       populateGoogleValue = googleAdobeArray[key];
-      console.log("Match found: " + key + " -> " + populateGoogleValue);
+      // console.log("Match found: " + key + " -> " + populateGoogleValue);
     }
 
     const AdobeForm = document.createElement('form');
@@ -134,6 +140,10 @@ function createAdobeFields() {
     // const iAdobeField = document.createElement('i');
     const GoogleIdField = document.createElement('input');
     const divider = document.createElement('div');
+
+    // const siblingElement = document.getElementById('adobe-child');
+    // console.log(siblingElement);
+
 
     AdobeForm.setAttribute('class', 'adobe-id-form');
     AdobeForm.setAttribute('name', adobeIdCheckArray[i]);
@@ -172,8 +182,14 @@ function createAdobeFields() {
     BetaAdobeField.appendChild(GoogleIdField);
     AdobeForm.appendChild(AlphaAdobeField);
     AdobeForm.appendChild(BetaAdobeField);
-    adobeField.appendChild(AdobeForm);
-    adobeField.appendChild(divider);
+    if (GoogleIdAvailable) {
+      adobeField.insertBefore(AdobeForm, siblingElement);
+      adobeField.insertBefore(divider, siblingElement);
+    }
+    else {
+      adobeField.appendChild(AdobeForm);
+      adobeField.appendChild(divider);
+    }
   }
 
   progressBarInput.style.width = '100%';
@@ -275,16 +291,21 @@ function download(data) {
 
   data = lineArray.join("\n");
 
-  const date = new Date();
+  const currentDate = new Date(); // Create a new Date object with the current date and time
+  const dateOptions = { timeZone: 'EST', weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short'};
+
+
+  const formattedDate = currentDate.toLocaleDateString('en-US', dateOptions); // Format the date as a string in a localized format
+  const formattedTime = currentDate.toLocaleTimeString();
 
   const blob = new Blob([data], {type: 'text/csv'});
   if (window.navigator.msSaveOrOpenBlob) {
-      window.navigator.msSaveBlob(blob, Date.now() + '.hashed.csv');
+      window.navigator.msSaveBlob(blob, formattedDate + '.hashed.csv');
   }
   else {
       const elem = window.document.createElement('a');
       elem.href = window.URL.createObjectURL(blob);
-      elem.download = Date.now() + '.hashed.csv';        
+      elem.download = formattedDate + '.hashed.csv';        
       document.body.appendChild(elem);
       elem.click();        
       document.body.removeChild(elem);
