@@ -1,0 +1,24 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
+
+article {
+  margin: 0 auto;
+  max-width: 760px;
+}
+article h1 {
+  font-size: 3em;
+}
+article h2 {
+  font-size: 2em;
+}
+article p {
+  line-height: 1.5em;
+}
+.ad-unit {
+  margin: 32px 0;
+  text-align: center;
+}

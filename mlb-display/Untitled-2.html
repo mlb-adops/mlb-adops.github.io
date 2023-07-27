@@ -1,0 +1,61 @@
+<!DOCTYPE html> 
+<head> 
+<meta name="viewport" 
+content="user-scalable=no, width=device-width, initial-scale=1.0, 
+maximum-scale=1.0, minimum-scale=1.0"/> 
+<script type="text/javascript" src="http://media.admob.com/api/v1/google_mobile_app_ads.js"></script>
+<script type="text/javascript" 
+src="[%AppStoreURL%]"></script> 
+<script type="text/javascript"> 
+function clickToApp(){ 
+ // Record the click event 
+ admob.recordEvent('%%CLICK_URL_UNESC%%'); 
+ // Call the App Schema URI 
+ admob.openUrl('[%AppStoreURL%]', false); 
+} 
+function fitScreen(){
+   //Get info on image
+   var _admPImage=document.getElementById('img');
+   //Set base width and height of image
+   _admPImage.width =[%ImageWidth%];
+   _admPImage.height =[%ImageHeight%];
+
+   displayDensity = window.devicePixelRatio?window.devicePixelRatio:1;
+
+   //If the device can use an HD image, then use the HD image instead of standard image
+   if(displayDensity != 1){
+      _admPImage.src=('[%HDImage%]'!='')?'[%HDImage%]':_admPImage.src;
+   }
+} 
+</script>
+</head> 
+
+<body onload="fitScreen();"> 
+<a target=_blank 
+href="#" 
+onClick="clickToApp();"> 
+<img border="0" src="[%Image%]" style="border:0px" id="img"> 
+</a> 
+</body> 
+</html>
+
+<div style="position:absolute;top:0px;right:0px;width:1px;height:1px;visibility:hidden;border:none;"><script type="text/javascript">
+
+var trackingPixel="[%Thirdpartyimpressiontracker1%]";if(trackingPixel.indexOf("http")==0)document.write('<iframe src="'+trackingPixel+'" height="1" width="1" style="width:1px !important;height 1px !important"></iframe>');
+
+var trackingPixel="[%Thirdpartyimpressiontracker2%]";if(trackingPixel.indexOf("http")==0)document.write('<iframe src="'+trackingPixel+'" height="1" width="1" style="width:1px !important;height 1px !important"></iframe>');
+
+</script></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
