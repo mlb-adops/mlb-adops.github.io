@@ -16,7 +16,7 @@ let adsLoader;
 let adsManager;
 let vastRequestURL;
 
-VastUrlInput.value = 'https://pubads.g.doubleclick.net/gampad/ads?sz=1920x1080&iu=/2605/qa_mlb.tv/roku_live&cust_params=env%3Dmlbtvlive%26dai_source%3Dpod_serving&gdfp_req=1&env=vp&output=xml_vast4&unviewed_position_start=1&url=https%3A%2F%2Fwww.mlb.com%2Ftv%2Fg717692%2Fv290f2c17-8dc0-448f-b62c-e2a7f8272673%23game%3D717692%2Ctfs%3D20230619_224000%2Cgame_state%3Dlive&description_url=mlb.tv&correlator=3091176728751694&pmnd=0&pmxd=120000&pmad=-1&vpos=midroll&pp=mlbtv_ssai_live&pod=2&ad_rule=0&ad_type&asset&vid=290f2c17-8dc0-448f-b62c-e2a7f8272673&mridx=1&ppid=58d44b3fbd2cceb9b47d91da71c2d2c0bce2c48d162eda211c61710f383783ba&cmsid=2473515&nofb=0';
+// VastUrlInput.value = 'https://pubads.g.doubleclick.net/gampad/ads?sz=1920x1080&iu=/2605/qa_mlb.tv/roku_live&cust_params=env%3Dmlbtvlive%26dai_source%3Dpod_serving&gdfp_req=1&env=vp&output=xml_vast4&unviewed_position_start=1&url=https%3A%2F%2Fwww.mlb.com%2Ftv%2Fg717692%2Fv290f2c17-8dc0-448f-b62c-e2a7f8272673%23game%3D717692%2Ctfs%3D20230619_224000%2Cgame_state%3Dlive&description_url=mlb.tv&correlator=3091176728751694&pmnd=0&pmxd=120000&pmad=-1&vpos=midroll&pp=mlbtv_ssai_live&pod=2&ad_rule=0&ad_type&asset&vid=290f2c17-8dc0-448f-b62c-e2a7f8272673&mridx=1&ppid=58d44b3fbd2cceb9b47d91da71c2d2c0bce2c48d162eda211c61710f383783ba&cmsid=2473515&nofb=0';
 
 // Define a variable to track whether there are ads loaded and initially set it to false
 var adsLoaded = false;
