@@ -5,6 +5,7 @@ const playButton = document.getElementById('play-button');
 const adContainer = document.getElementById('ad-container');
 
 const VastUrlInput = document.getElementById('input-vast');
+const VpaidModeInput = document.getElementById('vpaid-input');
 
 // const vastRequestURL = `https://pubads.g.doubleclick.net/gampad/ads?allcues=0,1000&sz=1920x1080&iu=%2F2605%2Fmlb.tv%2Fdesktop_live&gdfp_req=1&env=vp&output=xml_vast4&unviewed_position_start=1&url=https%3A%2F%2Fwww.mlb.com%2Ftv%2Fg718091%2Fv6b3957f0-2275-4d1e-aad2-583d9a4d945f%23game%3D718091%2Ctfs%3D20230521_173500%2Cgame_state%3Dlive&description_url=mlb.tv&pmnd=0&pmxd=120000&pmad=8&vpos=midroll&pp=mlbtv_csai_live&pod=2&ad_rule=0&vid=6b3957f0-2275-4d1e-aad2-583d9a4d945f&mridx=1&ppid=58d44b3fbd2cceb9b47d91da71c2d2c0bce2c48d162eda211c61710f383783ba&cmsid=2473515&nofb=0&cust_params=userType%3DPAID%26aam_uuid%3D13801678826595452754040997344520843234%26entitlement%3DEXECMLB%2CSUBSCRIBERVOD%26env%3Dmlbtvvod&vpa=auto&vpmute=0&hl=en&us_privacy=1---&sid=FB05432B-7489-402C-93CC-48476AC780E0`
 // const vastRequestURL = `https://pubads.g.doubleclick.net/gampad/ads?iu=iu=/2605/qa_mlb.tv/roku_live&cust_params=env%3Dmlbtvlive%26dai_source%3Dpod_serving&description_url=https%3A%2F%2Fwww.yesnetwork.com%2F&tfcd=0&npa=0&sz=640x480&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=[timestamp]`
@@ -17,6 +18,7 @@ let adsManager;
 let vastRequestURL;
 
 // VastUrlInput.value = 'https://pubads.g.doubleclick.net/gampad/ads?sz=1920x1080&iu=/2605/qa_mlb.tv/roku_live&cust_params=env%3Dmlbtvlive%26dai_source%3Dpod_serving&gdfp_req=1&env=vp&output=xml_vast4&unviewed_position_start=1&url=https%3A%2F%2Fwww.mlb.com%2Ftv%2Fg717692%2Fv290f2c17-8dc0-448f-b62c-e2a7f8272673%23game%3D717692%2Ctfs%3D20230619_224000%2Cgame_state%3Dlive&description_url=mlb.tv&correlator=3091176728751694&pmnd=0&pmxd=120000&pmad=-1&vpos=midroll&pp=mlbtv_ssai_live&pod=2&ad_rule=0&ad_type&asset&vid=290f2c17-8dc0-448f-b62c-e2a7f8272673&mridx=1&ppid=58d44b3fbd2cceb9b47d91da71c2d2c0bce2c48d162eda211c61710f383783ba&cmsid=2473515&nofb=0';
+// https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/single_ad_samples&sz=640x480&cust_params=sample_ct%3Dlinearvpaid2js&ciu_szs=300x250%2C728x90&gdfp_req=1&output=vast&unviewed_position_start=1&env=vp&impl=s&correlator=
 
 // Define a variable to track whether there are ads loaded and initially set it to false
 var adsLoaded = false;
@@ -49,6 +51,10 @@ window.addEventListener('resize', function(event) {
 function initializeIMA() {
   console.log("Initializing IMA");
   adContainer.addEventListener('click', adContainerClick);
+  google.ima.ImaSdkSettings.VpaidMode = + VpaidModeInput.checked;
+  console.log(`Vpaid Enabled: ${VpaidModeInput.checked}`);
+
+  google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode);
   adDisplayContainer = new google.ima.AdDisplayContainer(adContainer, videoElement);
   adsLoader = new google.ima.AdsLoader(adDisplayContainer);
 
