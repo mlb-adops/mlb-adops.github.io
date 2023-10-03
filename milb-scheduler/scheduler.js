@@ -24,8 +24,12 @@ async function generateSchedule() {
     scheduleTypes: 'games',
     startDate: startDateValue,
     endDate: endDateValue,
-    sportId: classValue
+    sportId: classValue,
   };
+
+  if (classValue == '17') {
+    scheduleParams.leagueIds = '131';
+  }
 
   const teamParams = {
     fields: ['teams','id','shortName'],
