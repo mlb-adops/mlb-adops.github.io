@@ -1,0 +1,41 @@
+<!doctype HTML>
+<html>
+  <head>
+    <title>Linear Player</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚾</text></svg>">
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script type="text/javascript" src="//imasdk.googleapis.com/js/sdkloader/ima3_dai.js"></script>
+
+    <!-- Styles -->
+    <link href='./player.css' rel='stylesheet'>
+  </head>
+  <body>
+    <header>
+
+    </header>
+    <main>
+      <section id="video-player-section">
+        <video id='video-player' muted='true' controls="true"></video>
+        <!-- <div id='ad-ui'></div> -->
+      </section>
+      <section id="video-player-controls">
+        <button class='btn' onclick="initPlayer()">Play: IMA SDK Stream</button>
+        <button class='btn' onclick="initApiPlayer()">Play: DAI API Stream</button>
+      </section>
+      <section id="video-player-details">
+        <input type='text' id='AdUnitInputField' placeholder='Ad Unit Id'>
+        <input type='text' id='AssetKeyInputField' placeholder='Asset Key'>
+        <input type='text' id='TokenInputField' placeholder='Token'>
+        <input type='text' id='DomainInputField' placeholder='Domain'>
+      </section>
+    </main>
+    <footer>
+      <!-- Player Scripts -->
+      <!-- <script src='./document.js'></script> -->
+      <script type='text/javascript' src='./share.js'></script>
+      <script type='text/javascript' src='./player.js'></script>
+    </footer>
+  </body>
+</html>
